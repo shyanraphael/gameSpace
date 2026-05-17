@@ -1,0 +1,155 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-game: var(--game);
+  --color-game-foreground: var(--game-foreground);
+  --color-game-glow: var(--game-glow);
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-grid: grid-pulse 6s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.55; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Default site palette — dark techwear */
+  --background: oklch(0.14 0.01 260);
+  --foreground: oklch(0.96 0.01 250);
+  --card: oklch(0.18 0.015 260);
+  --card-foreground: oklch(0.96 0.01 250);
+  --popover: oklch(0.18 0.015 260);
+  --popover-foreground: oklch(0.96 0.01 250);
+  --primary: oklch(0.86 0.18 95);
+  --primary-foreground: oklch(0.14 0.01 260);
+  --secondary: oklch(0.24 0.02 260);
+  --secondary-foreground: oklch(0.96 0.01 250);
+  --muted: oklch(0.22 0.015 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+  --accent: oklch(0.86 0.18 95);
+  --accent-foreground: oklch(0.14 0.01 260);
+  --destructive: oklch(0.65 0.24 25);
+  --destructive-foreground: oklch(0.98 0.01 250);
+  --border: oklch(0.28 0.02 260);
+  --input: oklch(0.28 0.02 260);
+  --ring: oklch(0.86 0.18 95);
+
+  /* Per-game theme — set via inline style on a wrapper */
+  --game: oklch(0.86 0.18 95);
+  --game-foreground: oklch(0.14 0.01 260);
+  --game-glow: oklch(0.86 0.18 95 / 0.45);
+}
+
+.light {
+  --background: oklch(0.98 0.005 250);
+  --foreground: oklch(0.18 0.02 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 260);
+  --primary: oklch(0.22 0.02 260);
+  --primary-foreground: oklch(0.98 0.005 250);
+  --secondary: oklch(0.94 0.01 250);
+  --secondary-foreground: oklch(0.18 0.02 260);
+  --muted: oklch(0.94 0.01 250);
+  --muted-foreground: oklch(0.45 0.02 260);
+  --accent: oklch(0.22 0.02 260);
+  --accent-foreground: oklch(0.98 0.005 250);
+  --border: oklch(0.88 0.01 250);
+  --input: oklch(0.88 0.01 250);
+  --ring: oklch(0.22 0.02 260);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-display);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+@utility container-wide {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  max-width: 1400px;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility grid-bg {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@utility tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+@utility glow {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-game) 40%, transparent),
+    0 20px 60px -10px var(--color-game-glow);
+}
